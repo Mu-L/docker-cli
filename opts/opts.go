@@ -61,6 +61,8 @@ func (opts *ListOpts) Set(value string) error {
 }
 
 // Delete removes the specified element from the slice.
+//
+// Deprecated: this method is no longer used and will be removed in the next release.
 func (opts *ListOpts) Delete(key string) {
 	for i, k := range *opts.values {
 		if k == key {
@@ -289,6 +291,9 @@ func NewFilterOpt() FilterOpt {
 }
 
 func (o *FilterOpt) String() string {
+	if o == nil || len(o.filter) == 0 {
+		return ""
+	}
 	repr, err := json.Marshal(o.filter)
 	if err != nil {
 		return "invalid filters"
